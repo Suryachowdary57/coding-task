@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Return Calculator</title>
+    <style>
+        .container{
+            border: 2px solid black;
+            width: 500px;
+            height: 500px;
+            margin-left: 500px;
+            margin-top: 100px;
+
+        }
+        table,td{
+            border: 2px solid black;
+            padding: 10px;
+            margin-left: 40px;
+            margin-top: 50px;
+        }
+        .box{
+            width: 200px;
+            text-align: center;
+            margin-left: 100px;
+        }
+        .btn{
+            color: white;
+            background-color: blue;
+            padding: 5px;
+            width: 200px;
+            margin-left: 100px;
+        }
+        label{
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+ 
+<div class="container">
+
+ 
+<label for="billAmount">Enter Bill Amount: </label><br>
+
+<input type="number" id="billAmount" placeholder="Bill Amount" class="box" /><br><br>
+
+<label for="givenAmount">Enter Given Amount: </label><br>
+<input type="number" id="givenAmount" placeholder="Given Amount"  class="box"/><br><br>
+
+<button onclick="calculateChange()" class="btn">Calculate Change</button>
+
+<h3>Return Notes:</h3>
+<table>
+    <tr>
+        <td>no fo notes</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>notes</td>
+        <td>2000</td>
+        <td>500</td>
+        <td>100</td>
+        <td>20</td>
+        <td>10</td>
+        <td>5</td>
+        <td>1  </td>
+    </tr>
+</table>
+<p id="result"></p>
+</div>
+
+<script>
+function calculateChange() {
+    let billAmount = document.getElementById("billAmount").value;
+    let givenAmount =  document.getElementById("givenAmount").value;
+    let result = "";
+
+   
+    if (givenAmount < billAmount) {
+        result = " you give less amount get away from my shop";
+    } else {
+        
+        let change = givenAmount - billAmount;
+        let changenotes = [2000,500 ,100, 20, 10, 5, 1];
+        let notesCount = {};
+
+        
+        for (let i of changenotes) {
+            if (change >= i) {
+                notesCount[i] = Math.floor(change / i);   
+                change %= i;  
+            }
+        }
+ 
+         result = `Change returned: ${givenAmount - billAmount} <br>`;
+        for (let i of changenotes) {
+            if (notesCount[i]) {
+                result += `${notesCount[i]} x ${i} notes<br>`;
+            }
+        }
+    }
+
+  
+    document.getElementById("result").innerHTML = result;
+}
+</script>
+
+</body>
+</html>
